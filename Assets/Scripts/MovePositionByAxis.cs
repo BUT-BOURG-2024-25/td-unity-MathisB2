@@ -17,9 +17,11 @@ public class MovePositionByAxis : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        //float horizontal = Input.GetAxis("Horizontal");
+        //float vertical = Input.GetAxis("Vertical");
 
-        transform.position += new Vector3(vertical* speed, 0, -horizontal * speed);
+
+
+        gameObject.transform.position += InputManager.instance.movementInput * speed;
     }
 }
