@@ -27,9 +27,9 @@ public class CubeSpawner : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 10000) && spawnablePrefab != null)
+        if (Physics.Raycast(ray, out hit, 10000,  groundLayer) && spawnablePrefab != null)
         {
-            GameObject.Instantiate(spawnablePrefab, hit.point, Quaternion.identity);
+            GameObject.Instantiate(spawnablePrefab, hit.point + Vector3.up, Quaternion.identity);
         }
     }
 
