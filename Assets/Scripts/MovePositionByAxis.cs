@@ -16,6 +16,10 @@ public class MovePositionByAxis : MonoBehaviour
 
     [SerializeField]
     private Rigidbody physicsBody;
+
+    [SerializeField]
+    private bool moveWithJoystick = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,11 +43,24 @@ public class MovePositionByAxis : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //float horizontal = Input.GetAxis("Horizontal");
-        //float vertical = Input.GetAxis("Vertical");
+        Vector3 movement = InputManager.instance.movementInput;
 
-        Vector3 newVelocity = InputManager.instance.movementInput * speed;
+
+        if (moveWithJoystick)
+        {
+            movement = new Vector3(
+                UiManager.instance.joystick.Direction.x,
+                0.0f,
+                UiManager.instance.joystick.Direction.y);
+        }
+
+        UnityEngine.Debug.Log(this.transform.rotation.y *180);
+        Vector3 moveDirection = Quaternion.AngleAxis(this.transform.rotation.y * 180, Vector3.up) * movement;
+
+        Vector3 newVelocity = moveDirection* speed;
         newVelocity.y = physicsBody.velocity.y;
         physicsBody.velocity = newVelocity;
+        
+        
     }
 }
